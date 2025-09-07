@@ -1,0 +1,30 @@
+14:48:36: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator_worker.py | concatenator_worker | 38] Logger initialized
+14:48:36: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:36: [INFO] Hello 3010 world!
+14:48:36: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:36: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:36: [INFO] Hello 3012 world!
+14:48:37: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:37: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:37: [INFO] Hello 3014 world!
+14:48:37: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:37: [INFO] Hello 3006 world!
+14:48:37: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:37: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:37: [INFO] Hello 3008 world!
+14:48:41: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:42: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:42: [INFO] Hello 3010 world!
+14:48:42: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:42: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:42: [INFO] Hello 3022 world!
+14:48:42: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:42: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:42: [INFO] Hello 3024 world!
+14:48:43: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:43: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:43: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:43: [INFO] Hello 3020 world!
+14:48:43: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:43: [DEBUG] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/multiprocess_example/concatenator/concatenator.py | run_concatenation | 33] Run
+14:48:43: [INFO] Hello 3022 world!

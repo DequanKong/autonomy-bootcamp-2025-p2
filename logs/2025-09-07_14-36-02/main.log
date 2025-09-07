@@ -1,0 +1,7 @@
+14:36:02: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/common/modules/logger/logger_main_setup.py | setup_main_logger | 62] main logger initialized
+14:36:02: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/main_multiprocess_example.py | main | 182] Started
+14:36:04: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/main_multiprocess_example.py | main | 188] Paused
+14:36:08: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/main_multiprocess_example.py | main | 192] Resumed
+14:36:10: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/main_multiprocess_example.py | main | 199] Requested exit
+14:36:10: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/main_multiprocess_example.py | main | 205] Queues cleared
+14:36:10: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/documentation/main_multiprocess_example.py | main | 211] Stopped

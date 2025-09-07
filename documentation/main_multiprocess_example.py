@@ -63,7 +63,7 @@ def main() -> int:
     mp_manager = mp.Manager()
 
     # Queue maxsize should always be >= the larger of producers/consumers count
-    # Example: Producers 3, consumers 2, so queue maxsize minimum is 3
+    # Example: Producers 3, consumers 2, so queue maxsize >= 3
     countup_to_add_random_queue = queue_proxy_wrapper.QueueProxyWrapper(
         mp_manager,
         COUNTUP_TO_ADD_RANDOM_QUEUE_MAX_SIZE,
@@ -73,7 +73,7 @@ def main() -> int:
         ADD_RANDOM_TO_CONCATENATOR_QUEUE_MAX_SIZE,
     )
 
-    # Worker properties
+    # Countup Worker properties
     result, countup_worker_properties = worker_manager.WorkerProperties.create(
         count=COUNTUP_WORKER_COUNT,  # How many workers
         target=countup_worker.countup_worker,  # What's the function that this worker runs
@@ -93,6 +93,7 @@ def main() -> int:
     # Get Pylance to stop complaining
     assert countup_worker_properties is not None
 
+    # Add Random Worker properties
     result, add_random_worker_properties = worker_manager.WorkerProperties.create(
         count=ADD_RANDOM_WORKER_COUNT,
         target=add_random_worker.add_random_worker,
@@ -113,6 +114,7 @@ def main() -> int:
     # Get Pylance to stop complaining
     assert add_random_worker_properties is not None
 
+    # Concatenator Worker properties
     result, concatenator_worker_properties = worker_manager.WorkerProperties.create(
         count=CONCATENATOR_WORKER_COUNT,
         target=concatenator_worker.concatenator_worker,
@@ -134,8 +136,10 @@ def main() -> int:
 
     # Prepare processes
     # Data path: countup_worker to add_random_worker to concatenator_workers
-    worker_managers: list[worker_manager.WorkerManager] = []  # List of all worker managers
+    # List of all worker managers
+    worker_managers: list[worker_manager.WorkerManager] = []  
 
+    # Create Countup manager
     result, countup_manager = worker_manager.WorkerManager.create(
         worker_properties=countup_worker_properties,
         local_logger=main_logger,
@@ -147,8 +151,9 @@ def main() -> int:
     # Get Pylance to stop complaining
     assert countup_manager is not None
 
-    worker_managers.append(countup_manager)
+    worker_managers.append(countup_manager) # add Countup manager to list
 
+    # Create Add Random manager
     result, add_random_manager = worker_manager.WorkerManager.create(
         worker_properties=add_random_worker_properties,
         local_logger=main_logger,
@@ -160,8 +165,9 @@ def main() -> int:
     # Get Pylance to stop complaining
     assert add_random_manager is not None
 
-    worker_managers.append(add_random_manager)
+    worker_managers.append(add_random_manager) # add Random manager to list
 
+    # Create Concatenator manager
     result, concatenator_manager = worker_manager.WorkerManager.create(
         worker_properties=concatenator_worker_properties,
         local_logger=main_logger,
@@ -173,7 +179,7 @@ def main() -> int:
     # Get Pylance to stop complaining
     assert concatenator_manager is not None
 
-    worker_managers.append(concatenator_manager)
+    worker_managers.append(concatenator_manager) # add Concatenator manager to list
 
     # Start worker processes
     for manager in worker_managers:

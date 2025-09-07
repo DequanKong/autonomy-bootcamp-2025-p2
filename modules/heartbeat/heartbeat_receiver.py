@@ -12,7 +12,7 @@ from ..common.modules.logger import logger
 # =================================================================================================
 class HeartbeatReceiver:
     """
-    HeartbeatReceiver class to send a heartbeat
+    HeartbeatReceiver class to receive a heartbeat
     """
 
     __private_key = object()
