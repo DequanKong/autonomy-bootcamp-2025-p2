@@ -137,7 +137,7 @@ def main() -> int:
     # Prepare processes
     # Data path: countup_worker to add_random_worker to concatenator_workers
     # List of all worker managers
-    worker_managers: list[worker_manager.WorkerManager] = []  
+    worker_managers: list[worker_manager.WorkerManager] = []
 
     # Create Countup manager
     result, countup_manager = worker_manager.WorkerManager.create(
@@ -151,7 +151,7 @@ def main() -> int:
     # Get Pylance to stop complaining
     assert countup_manager is not None
 
-    worker_managers.append(countup_manager) # add Countup manager to list
+    worker_managers.append(countup_manager)  # add Countup manager to list
 
     # Create Add Random manager
     result, add_random_manager = worker_manager.WorkerManager.create(
@@ -165,7 +165,7 @@ def main() -> int:
     # Get Pylance to stop complaining
     assert add_random_manager is not None
 
-    worker_managers.append(add_random_manager) # add Random manager to list
+    worker_managers.append(add_random_manager)  # add Random manager to list
 
     # Create Concatenator manager
     result, concatenator_manager = worker_manager.WorkerManager.create(
@@ -179,7 +179,7 @@ def main() -> int:
     # Get Pylance to stop complaining
     assert concatenator_manager is not None
 
-    worker_managers.append(concatenator_manager) # add Concatenator manager to list
+    worker_managers.append(concatenator_manager)  # add Concatenator manager to list
 
     # Start worker processes
     for manager in worker_managers:

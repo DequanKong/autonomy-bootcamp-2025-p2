@@ -47,15 +47,15 @@ def heartbeat_sender_worker(
     # =============================================================================================
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
-    
+
     # Instantiate class object (heartbeat_sender.HeartbeatSender)
     check, hb_sender_instance = heartbeat_sender.HeartbeatSender.create(connection, local_logger)
     if not check:
         local_logger.error("Failed to create HeartbeatSender (invalid connection or logger).")
         return
-    
+
     local_logger.info("HeartbeatSender worker started.")
-    
+
     HEARTBEAT_PERIOD = 1.0  # interval in seconds between heartbeats
 
     # Main loop: do work.
@@ -64,11 +64,12 @@ def heartbeat_sender_worker(
         sent = hb_sender_instance.run_hb_sender()
         if not sent:
             local_logger.error("Failed to send heartbeat.")
-            
+
         # wait until next heartbeat
         time.sleep(HEARTBEAT_PERIOD)
     local_logger.info("HeartbeatSender worker stopped.")
-      
+
+
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================

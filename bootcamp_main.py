@@ -79,10 +79,9 @@ def main() -> int:
     mp_manager = mp.Manager()
     # Create queues
     hb_receiver_to_main_queue = queue_proxy_wrapper.QueueProxyWrapper(
-        mp_manager,
-        HB_RECEIVER_TO_MAIN_QUEUE_MAX_SIZE
+        mp_manager, HB_RECEIVER_TO_MAIN_QUEUE_MAX_SIZE
     )
-    
+
     # Create worker properties for each worker type (what inputs it takes, how many workers)
     # Heartbeat sender
 

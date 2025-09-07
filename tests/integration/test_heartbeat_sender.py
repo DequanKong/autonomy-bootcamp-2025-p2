@@ -51,6 +51,7 @@ def stop(controller: worker_controller.WorkerController) -> None:
     """
     controller.request_exit()
 
+
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================
