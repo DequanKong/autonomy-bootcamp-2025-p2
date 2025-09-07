@@ -82,6 +82,7 @@ def main() -> int:
         mp_manager,
         HB_RECEIVER_TO_MAIN_QUEUE_MAX_SIZE
     )
+    
     # Create worker properties for each worker type (what inputs it takes, how many workers)
     # Heartbeat sender
 
