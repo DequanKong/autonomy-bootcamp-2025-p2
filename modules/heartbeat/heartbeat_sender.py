@@ -4,10 +4,6 @@ Heartbeat sending logic.
 
 from pymavlink import mavutil
 
-
-# =================================================================================================
-#                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
-# =================================================================================================
 class HeartbeatSender:
     """
     HeartbeatSender class to send a heartbeat
@@ -28,10 +24,10 @@ class HeartbeatSender:
 
     def __init__(self, key: object, connection: mavutil.mavfile, local_logger):
         assert key is HeartbeatSender.__private_key, "Use create() method"
-
+        # Initialization
         self.connection = connection
         self._log = local_logger
-        self._log.debug("HeartbeatSender initialized with connection %s", connection)
+        self._log.debug("HeartbeatSender initialized")
 
     def run_hb_sender(self):
         """
@@ -50,8 +46,3 @@ class HeartbeatSender:
         except Exception as e:
             self._log.error("Failed to send HEARTBEAT: %s", e)
             return False
-
-
-# =================================================================================================
-#                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
-# =================================================================================================

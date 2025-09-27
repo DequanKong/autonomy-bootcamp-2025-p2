@@ -32,7 +32,7 @@ CONNECTION_STRING = "tcp:localhost:12345"
 # Set queue max sizes (<= 0 for infinity)
 HB_RECEIVER_TO_MAIN_QUEUE_MAX_SIZE = 6
 # Set worker counts
-
+HB_RECEIVER_WORKER_COUNT = 2
 # Any other constants
 
 # =================================================================================================
@@ -86,6 +86,31 @@ def main() -> int:
     # Heartbeat sender
 
     # Heartbeat receiver
+
+    # result, hb_receiver_worker_properties = worker_manager.WorkerProperties.create(
+    #     count = HB_RECEIVER_WORKER_COUNT # How many workers
+    #     target = heartbeat_receiver_worker.heartbeat_receiver_worker,  # What's the function that this worker runs
+    #     work_arguments=( # The function's arguments excluding input/output queues and controller
+    #         CONNECTION_STRING,
+            
+    #     ),
+        
+    # )
+    # result, countup_worker_properties = worker_manager.WorkerProperties.create(
+    #     count=COUNTUP_WORKER_COUNT,  # How many workers
+    #     target=countup_worker.countup_worker,  # What's the function that this worker runs
+    #     work_arguments=(  # The function's arguments excluding input/output queues and controller
+    #         3,
+    #         100,
+    #     ),
+    #     input_queues=[],  # Note that input/output queues must be in the proper order
+    #     output_queues=[countup_to_add_random_queue],
+    #     controller=controller,  # Worker controller
+    #     local_logger=main_logger,  # Main logger to log any failures during worker creation
+    # )
+    # if not result:
+    #     print("Failed to create arguments for Countup")
+    #     return -1
 
     # Telemetry
 

@@ -1,5 +1,7 @@
 """
 Mock drone for testing Heartbeat Sender.
+To run: 
+python -m tests.integration.mock_drones.heartbeat_sender_drone
 """
 
 import os

@@ -7,7 +7,6 @@ import pathlib
 import time
 
 from pymavlink import mavutil
-
 from modules.common.modules.logger import logger
 
 
@@ -16,7 +15,6 @@ HEARTBEAT_PERIOD = 1
 DISCONNECT_THRESHOLD = 5
 NUM_TRIALS = 5
 NUM_DISCONNECTS = 3
-
 
 def main() -> int:
     """

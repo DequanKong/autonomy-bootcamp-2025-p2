@@ -9,10 +9,8 @@ import time
 from pymavlink import mavutil
 
 from utilities.workers import worker_controller
-from utilities.workers import queue_proxy_wrapper
 from modules.heartbeat import heartbeat_sender
 from modules.common.modules.logger import logger
-
 
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
@@ -20,12 +18,14 @@ from modules.common.modules.logger import logger
 def heartbeat_sender_worker(
     connection: mavutil.mavfile,
     controller: worker_controller.WorkerController,
-    # Add other necessary worker arguments here
 ) -> None:
     """
     Worker process.
 
-    args... describe what the arguments are
+    connection: connection instance
+    controller: how the main process communicates to this worker process.
+    output_queue: worker output queue
+    heartbeat_time: time for a single heartbeat
     """
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
@@ -50,6 +50,7 @@ def heartbeat_sender_worker(
 
     # Instantiate class object (heartbeat_sender.HeartbeatSender)
     check, hb_sender_instance = heartbeat_sender.HeartbeatSender.create(connection, local_logger)
+   
     if not check:
         local_logger.error("Failed to create HeartbeatSender (invalid connection or logger).")
         return
@@ -68,8 +69,3 @@ def heartbeat_sender_worker(
         # wait until next heartbeat
         time.sleep(HEARTBEAT_PERIOD)
     local_logger.info("HeartbeatSender worker stopped.")
-
-
-# =================================================================================================
-#                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
-# =================================================================================================

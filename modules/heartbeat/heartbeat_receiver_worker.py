@@ -1,36 +1,40 @@
 """
-Heartbeat worker that sends heartbeats periodically.
+Heartbeat worker that receives heartbeats periodically.
 """
 
 import os
 import pathlib
-
+import time
 from pymavlink import mavutil
 
 from utilities.workers import queue_proxy_wrapper
 from utilities.workers import worker_controller
-from . import heartbeat_receiver
+from modules.heartbeat import heartbeat_receiver
 from ..common.modules.logger import logger
-
 
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
+    
 def heartbeat_receiver_worker(
     connection: mavutil.mavfile,
-    args,  # Place your own arguments here
-    # Add other necessary worker arguments here
+    heartbeat_time: float,
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper, 
+    controller: worker_controller.WorkerController,
 ) -> None:
     """
     Worker process.
 
-    args... describe what the arguments are
+    connection: connection instance
+    heartbeat_time: interval in which worker tries to receive heartbeats
+    output_queue: output to the main process
+    controller: how the main process communicates to this worker process.
     """
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
     # =============================================================================================
 
-    # Instantiate logger
+   # Instantiate logger
     worker_name = pathlib.Path(__file__).stem
     process_id = os.getpid()
     result, local_logger = logger.Logger.create(f"{worker_name}_{process_id}", True)
@@ -47,10 +51,38 @@ def heartbeat_receiver_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (heartbeat_receiver.HeartbeatReceiver)
+    check, hb_receiver_instance = heartbeat_receiver.HeartbeatReceiver.create(connection, local_logger)
+    if not check:
+        local_logger.error("Failed to create Heartbeat Receiver (invalid connection or logger).")
+        return
 
-    # Main loop: do work.
+    status = "Disconnected"
+    missed = 0
+    MISSED_MAX = 5
+    a = 1
+    # Worker starts
+    local_logger.info("HeartbeatReceiver worker started.")
+    
+    # Do work in infinite loop
+    while not controller.is_exit_requested():
+        controller.check_pause()
+        local_logger.info("SECOND " + str(a))
+        a += 1
+        received = hb_receiver_instance.run_hb_receiver()
+        if (received):
+            missed = 0
+            local_logger.info("Received heartbeat!")
+            status = "Connected"
+            local_logger.info("STATUS: " + status)
+        else:
+            missed += 1
+            local_logger.warning("Missed heartbeat! " + str(missed) + " in a row.")
+            if (missed >= MISSED_MAX): # if missed 5 times in a row, disconnected
+                status = "Disconnected"
+                local_logger.warning("STATUS: " + status)
+            else:
+                local_logger.info("STATUS: " + status)
+        output_queue.queue.put(status)
+        time.sleep(heartbeat_time)
 
-
-# =================================================================================================
-#                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
-# =================================================================================================
+    local_logger.info("HeartbeatReceiver worker stopped.")

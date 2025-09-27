@@ -1,12 +1,10 @@
 """
 Heartbeat receiving logic.
 """
-
 from pymavlink import mavutil
+from modules.common.modules.logger import logger
 
-from ..common.modules.logger import logger
-
-
+HEARTBEAT_PERIOD = 1.0
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
@@ -16,41 +14,30 @@ class HeartbeatReceiver:
     """
 
     __private_key = object()
-
     @classmethod
-    def create(
-        cls,
-        connection: mavutil.mavfile,
-        args,  # Put your own arguments here
-        local_logger: logger.Logger,
-    ):
+    def create(cls,connection: mavutil.mavfile,local_logger: logger):
         """
         Falliable create (instantiation) method to create a HeartbeatReceiver object.
         """
-        pass  # Create a HeartbeatReceiver object
+        # Create a HeartbeatReceiver object
+        if connection is None or local_logger is None:
+            return False, None
+        return True, HeartbeatReceiver(cls.__private_key, connection, local_logger)
 
-    def __init__(
-        self,
-        key: object,
-        connection: mavutil.mavfile,
-        args,  # Put your own arguments here
-    ) -> None:
+    def __init__(self,key: object,connection: mavutil.mavfile,local_logger: logger.Logger):
         assert key is HeartbeatReceiver.__private_key, "Use create() method"
 
-        # Do any intializiation here
-
-    def run(
-        self,
-        args,  # Put your own arguments here
-    ):
-        """
-        Attempt to recieve a heartbeat message.
-        If disconnected for over a threshold number of periods,
-        the connection is considered disconnected.
-        """
-        pass
-
-
-# =================================================================================================
-#                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
-# =================================================================================================
+        # Initialization
+        self.connection = connection
+        self._log = local_logger
+        
+        self._log.info("HeartbeatReceiver initialized")
+        
+    def run_hb_receiver(self) -> bool:
+        msg = self.connection.recv_match(
+            type="HEARTBEAT", blocking=True, timeout=HEARTBEAT_PERIOD
+        )
+        if not msg:
+            return False
+        return True
+    
