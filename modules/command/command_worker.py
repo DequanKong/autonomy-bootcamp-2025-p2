@@ -12,6 +12,7 @@ from utilities.workers import worker_controller
 from . import command
 from ..common.modules.logger import logger
 
+
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
@@ -20,7 +21,7 @@ def command_worker(
     target: command.Position,
     input_queue: queue_proxy_wrapper.QueueProxyWrapper,
     output_queue: queue_proxy_wrapper.QueueProxyWrapper,
-    controller: worker_controller.WorkerController
+    controller: worker_controller.WorkerController,
 ) -> None:
     """
     Worker process.
@@ -56,14 +57,15 @@ def command_worker(
     # Main loop: do work.
     while not controller.is_exit_requested():
         controller.check_pause()
-        if input_queue is None or input_queue.queue.empty(): # no data
+        if input_queue is None or input_queue.queue.empty():  # no data
             continue
         msg = input_queue.queue.get(timeout=1.0)
-        if msg is None: 
+        if msg is None:
             continue
         result = command_instance.run_cmd(msg)
         if result is not None and output_queue is not None:
             output_queue.queue.put(result)
+
 
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑

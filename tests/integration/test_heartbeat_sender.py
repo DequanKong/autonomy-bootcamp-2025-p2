@@ -5,7 +5,6 @@ Test the heartbeat sender worker with a mocked drone.
 import multiprocessing as mp
 import subprocess
 import threading
-import pytest
 
 from pymavlink import mavutil
 
@@ -95,7 +94,7 @@ def main() -> int:
     controller = worker_controller.WorkerController()
     # Just set a timer to stop the worker after a while, since the worker infinite loops
     threading.Timer(HEARTBEAT_PERIOD * NUM_TRIALS, stop, (controller,)).start()
-    heartbeat_sender_worker.heartbeat_sender_worker(connection=connection,controller=controller)
+    heartbeat_sender_worker.heartbeat_sender_worker(connection=connection, controller=controller)
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
     # =============================================================================================

@@ -5,7 +5,6 @@ Main process to setup and manage all the other working processes
 """
 
 import multiprocessing as mp
-import queue
 import time
 
 from pymavlink import mavutil
@@ -41,7 +40,7 @@ TELEMETRY_WORKER_COUNT = 1
 COMMAND_WORKER_COUNT = 1
 # Any other constants
 HEARTBEAT_TIME = 1.0
-TARGET_POSITION = command.Position(0.0,0.0,5.0)
+TARGET_POSITION = command.Position(0.0, 0.0, 5.0)
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================
@@ -85,35 +84,33 @@ def main() -> int:
     # Create a multiprocess manager for synchronized queues
     mp_manager = mp.Manager()
     # Create queues
-    telemetry_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager,TELEMETRY_QUEUE_SIZE)
-    hb_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager,HB_QUEUE_SIZE)
-    command_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager,COMMAND_QUEUE_SIZE)
-    
-
+    telemetry_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager, TELEMETRY_QUEUE_SIZE)
+    hb_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager, HB_QUEUE_SIZE)
+    command_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager, COMMAND_QUEUE_SIZE)
 
     # Create worker properties for each worker type (what inputs it takes, how many workers)
     # Heartbeat sender
     check, hb_sender_properties = worker_manager.WorkerProperties.create(
-        count = HB_SENDER_WORKER_COUNT,
-        target = heartbeat_sender_worker.heartbeat_sender_worker,
-        work_arguments=(connection,None),
+        count=HB_SENDER_WORKER_COUNT,
+        target=heartbeat_sender_worker.heartbeat_sender_worker,
+        work_arguments=(connection, None),
         input_queues=[],
         output_queues=[],
         controller=controller,
-        local_logger=main_logger
+        local_logger=main_logger,
     )
     if not check:
         main_logger.error("Failed to create heartbeat sender properties!")
         return -1
     # Heartbeat receiver
     check, hb_receiver_properties = worker_manager.WorkerProperties.create(
-        count = HB_RECEIVER_WORKER_COUNT,
-        target = heartbeat_receiver_worker.heartbeat_receiver_worker,
-        work_arguments=(connection,HEARTBEAT_TIME),
+        count=HB_RECEIVER_WORKER_COUNT,
+        target=heartbeat_receiver_worker.heartbeat_receiver_worker,
+        work_arguments=(connection, HEARTBEAT_TIME),
         input_queues=[],
         output_queues=[hb_queue],
         controller=controller,
-        local_logger=main_logger
+        local_logger=main_logger,
     )
     if not check:
         main_logger.error("Failed to create heartbeat receiver properties!")
@@ -121,31 +118,31 @@ def main() -> int:
 
     # Telemetry
     check, telemetry_properties = worker_manager.WorkerProperties.create(
-        count = TELEMETRY_WORKER_COUNT,
-        target = telemetry_worker.telemetry_worker,
-        work_arguments=(connection,None),
+        count=TELEMETRY_WORKER_COUNT,
+        target=telemetry_worker.telemetry_worker,
+        work_arguments=(connection, None),
         input_queues=[],
         output_queues=[telemetry_queue],
         controller=controller,
-        local_logger=main_logger
+        local_logger=main_logger,
     )
     if not check:
         main_logger.error("Failed to create telemetry properties!")
         return -1
     # Command
     check, command_properties = worker_manager.WorkerProperties.create(
-        count = COMMAND_WORKER_COUNT,
-        target = command_worker.command_worker,
-        work_arguments=(connection,TARGET_POSITION, None),
+        count=COMMAND_WORKER_COUNT,
+        target=command_worker.command_worker,
+        work_arguments=(connection, TARGET_POSITION, None),
         input_queues=[telemetry_queue],
         output_queues=[command_queue],
         controller=controller,
-        local_logger=main_logger
+        local_logger=main_logger,
     )
     if not check:
         main_logger.error("Failed to create command properties!")
         return -1
-    
+
     # Create the workers (processes) and obtain their managers
     # Heartbeat sender
     result, hb_sender_manager = worker_manager.WorkerManager.create(
@@ -154,7 +151,7 @@ def main() -> int:
     if not result:
         main_logger.error("Failed to create heartbeat sender manager!")
         return -1
-    
+
     # Heartbeat receiver
     result, hb_receiver_manager = worker_manager.WorkerManager.create(
         hb_receiver_properties, main_logger
@@ -162,7 +159,7 @@ def main() -> int:
     if not result:
         main_logger.error("Failed to create heartbeat receiver manager!")
         return -1
-    
+
     # Telemetry
     result, telemetry_manager = worker_manager.WorkerManager.create(
         telemetry_properties, main_logger
@@ -170,31 +167,29 @@ def main() -> int:
     if not result:
         main_logger.error("Failed to create telemetry manager!")
         return -1
-    
+
     # Command
-    result, command_manager = worker_manager.WorkerManager.create(
-        command_properties, main_logger
-    )
+    result, command_manager = worker_manager.WorkerManager.create(command_properties, main_logger)
     if not result:
         main_logger.error("Failed to create command manager!")
         return -1
-    
+
     # Start worker processes
     hb_sender_manager.start_workers()
     hb_receiver_manager.start_workers()
     telemetry_manager.start_workers()
     command_manager.start_workers()
-    
+
     main_logger.info("Started")
 
     # Main's work: read from all queues that output to main, and log any commands that we make
     # Continue running for 100 seconds or until the drone disconnects
     start = time.time()
-    while (time.time() - start < 100):
+    while time.time() - start < 100:
         heartbeat_data = hb_queue.queue.get(timeout=0.1)
         if heartbeat_data is not None:
             main_logger.info(f"Received heartbeat: {heartbeat_data}")
-            
+
         command_data = command_queue.queue.get(timeout=0.1)
         if command_data is not None:
             main_logger.info(f"Received heartbeat: {command_data}")
@@ -214,7 +209,7 @@ def main() -> int:
     hb_receiver_manager.join_workers()
     hb_sender_manager.join_workers()
     telemetry_manager.join_workers()
-    
+
     main_logger.info("Stopped")
 
     # We can reset controller in case we want to reuse it

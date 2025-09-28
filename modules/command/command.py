@@ -3,7 +3,7 @@ Decision-making logic.
 """
 
 import math
-
+from typing import Union, Tuple
 from pymavlink import mavutil
 
 from ..common.modules.logger import logger
@@ -38,7 +38,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
         connection: mavutil.mavfile,
         target: Position,
         local_logger: logger.Logger,
-    ):
+    ) -> Tuple[bool, Union["Telemetry", None]]:
         """
         Falliable create (instantiation) method to create a Command object.
         """
@@ -61,14 +61,13 @@ class Command:  # pylint: disable=too-many-instance-attributes
         self.logger = local_logger
         self.velocity_data = []
 
-    def run_cmd(self, telemetryData: telemetry.TelemetryData): 
-        
+    def run_cmd(self, telemetry_data: telemetry.TelemetryData) -> None:
         """
         Make a decision based on received telemetry data.
         """
         # Calculate average velocity in x, y, z
-        vx,vy,vz = telemetryData.x_velocity, telemetryData.y_velocity, telemetryData.z_velocity
-        self.velocity_data.append([vx,vy,vz])
+        vx, vy, vz = telemetry_data.x_velocity, telemetry_data.y_velocity, telemetry_data.z_velocity
+        self.velocity_data.append([vx, vy, vz])
         sum_vx = 0
         sum_vy = 0
         sum_vz = 0
@@ -76,9 +75,9 @@ class Command:  # pylint: disable=too-many-instance-attributes
             sum_vx += v[0]
             sum_vy += v[1]
             sum_vz += v[2]
-        avg_vx = sum_vx / (len(self.velocity_data)*1.0)
-        avg_vy = sum_vy / (len(self.velocity_data)*1.0)
-        avg_vz = sum_vz / (len(self.velocity_data)*1.0)
+        avg_vx = sum_vx / (len(self.velocity_data) * 1.0)
+        avg_vy = sum_vy / (len(self.velocity_data) * 1.0)
+        avg_vz = sum_vz / (len(self.velocity_data) * 1.0)
         # Log average velocity for this trip so far
         self.logger.info(f"Average Velocity: {avg_vx}, {avg_vy}, {avg_vz}")
 
@@ -88,44 +87,54 @@ class Command:  # pylint: disable=too-many-instance-attributes
         # Adjust height using the comand MAV_CMD_CONDITION_CHANGE_ALT (113)
         # String to return to main: "CHANGE_ALTITUDE: {amount you changed it by, delta height in meters}"
 
-        if (abs(self.target.z - telemetryData.z ) > 0.5): # need to adjust altitude
+        if abs(self.target.z - telemetry_data.z) > 0.5:  # need to adjust altitude
             self.connection.mav.command_long_send(
-                1, # target_system
-                0, # target_component
-                mavutil.mavlink.MAV_CMD_CONDITION_CHANGE_ALT, # command
-                0, # confirmation
-                1, # param1: descend/ascend rate (m/s)
-                0,0,0,0,0, # param2-param6 unused
-                self.target.z # param7: target altitude (m)
+                1,  # target_system
+                0,  # target_component
+                mavutil.mavlink.MAV_CMD_CONDITION_CHANGE_ALT,  # command
+                0,  # confirmation
+                1,  # param1: descend/ascend rate (m/s)
+                0,
+                0,
+                0,
+                0,
+                0,  # param2-param6 unused
+                self.target.z,  # param7: target altitude (m)
             )
-            return f"CHANGE ALTITUDE: {self.target.z - telemetryData.z}m"
-        
+            return f"CHANGE ALTITUDE: {self.target.z - telemetry_data.z}m"
+
         # Adjust direction (yaw) using MAV_CMD_CONDITION_YAW (115). Must use relative angle to current state
         # String to return to main: "CHANGING_YAW: {degree you changed it by in range [-180, 180]}"
         # Positive angle is counter-clockwise as in a right handed system
-        
+
         # calculate angle in rad, then convert to degrees
-        target_yaw_deg = math.degrees(math.atan2(self.target.y - telemetryData.y, self.target.x - telemetryData.x)) 
-        now_yaw_deg = math.degrees(telemetryData.yaw)
+        target_yaw_deg = math.degrees(
+            math.atan2(self.target.y - telemetry_data.y, self.target.x - telemetry_data.x)
+        )
+        now_yaw_deg = math.degrees(telemetry_data.yaw)
         yaw_angle = (target_yaw_deg - now_yaw_deg + 180) % 360 - 180
-        
-        if (abs(yaw_angle)) > 5: # need to adjust direction
-            direction = 1 # if angle positive, clockwise
+
+        if (abs(yaw_angle)) > 5:  # need to adjust direction
+            direction = 1  # if angle positive, clockwise
             if yaw_angle <= 0:
-                direction = -1 # if angle negative, counter-clockwise
+                direction = -1  # if angle negative, counter-clockwise
             self.connection.mav.command_long_send(
-                1, # target_system
-                0, # target_component
-                mavutil.mavlink.MAV_CMD_CONDITION_YAW, # command
-                0, # confirmation
-                yaw_angle, # degrees
-                5, # angular speed
-                direction, # direction
-                1, # relative offset
-                0,0,0, # param5-param7 not used
+                1,  # target_system
+                0,  # target_component
+                mavutil.mavlink.MAV_CMD_CONDITION_YAW,  # command
+                0,  # confirmation
+                yaw_angle,  # degrees
+                5,  # angular speed
+                direction,  # direction
+                1,  # relative offset
+                0,
+                0,
+                0,  # param5-param7 not used
             )
             return f"CHANGE YAW: {yaw_angle}"
         return None
+
+
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================

@@ -3,9 +3,8 @@ Telemetry gathering logic.
 """
 
 import time
-
+from typing import Tuple, Union, Optional
 from pymavlink import mavutil
-
 from ..common.modules.logger import logger
 
 
@@ -77,11 +76,11 @@ class Telemetry:
         cls,
         connection: mavutil.mavfile,
         local_logger: logger.Logger,
-    ):
+    ) -> Tuple[bool, Union["Telemetry", None]]:
         """
         Falliable create (instantiation) method to create a Telemetry object.
         """
-        return Telemetry(cls.__private_key,connection,local_logger)
+        return Telemetry(cls.__private_key, connection, local_logger)
 
     def __init__(
         self,
@@ -98,7 +97,7 @@ class Telemetry:
         self.attitude_msg = None
         self.__log.info("Telemetry initialized")
 
-    def run_telemetry(self):
+    def run_telemetry(self) -> Optional[TelemetryData]:
         """
         Receive LOCAL_POSITION_NED and ATTITUDE messages from the drone,
         combining them together to form a single TelemetryData object.
@@ -106,14 +105,14 @@ class Telemetry:
         # Read MAVLink message LOCAL_POSITION_NED (32)
         # Read MAVLink message ATTITUDE (30)
         # Return the most recent of both, and use the most recent message's timestamp
-        
+
         start = time.time()
         timeout_period = 1.0
-        
+
         temp_position_msg = None
         temp_attitude_msg = None
-        
-        while (time.time() - start < timeout_period):
+
+        while time.time() - start < timeout_period:
             msg = self.connection.recv_match(
                 type=["LOCAL_POSITION_NED", "ATTITUDE"], blocking=False, timeout=0.1
             )
@@ -123,23 +122,33 @@ class Telemetry:
                 temp_position_msg = msg
             if msg.get_type() == "ATTITUDE":
                 temp_attitude_msg = msg
-                
+
             if temp_position_msg and temp_attitude_msg:
                 break
-        
+
         if temp_position_msg and temp_attitude_msg:
             self.position_msg = temp_position_msg
             self.attitude_msg = temp_attitude_msg
-            
+
             telemetry_data = TelemetryData(
-                time_since_boot = max(self.position_msg.time_boot_ms, self.attitude_msg.time_boot_ms),
-                x = self.position_msg.x, y = self.position_msg.y, z = self.position_msg.z,
-                x_velocity = self.position_msg.vx, y_velocity = self.position_msg.vy, z_velocity = self.position_msg.vz,
-                roll = self.attitude_msg.roll, pitch = self.attitude_msg.pitch, yaw = self.attitude_msg.yaw,
-                roll_speed = self.attitude_msg.rollspeed, pitch_speed = self.attitude_msg.pitchspeed, yaw_speed = self.attitude_msg.yawspeed,
+                time_since_boot=max(self.position_msg.time_boot_ms, self.attitude_msg.time_boot_ms),
+                x=self.position_msg.x,
+                y=self.position_msg.y,
+                z=self.position_msg.z,
+                x_velocity=self.position_msg.vx,
+                y_velocity=self.position_msg.vy,
+                z_velocity=self.position_msg.vz,
+                roll=self.attitude_msg.roll,
+                pitch=self.attitude_msg.pitch,
+                yaw=self.attitude_msg.yaw,
+                roll_speed=self.attitude_msg.rollspeed,
+                pitch_speed=self.attitude_msg.pitchspeed,
+                yaw_speed=self.attitude_msg.yawspeed,
             )
             return telemetry_data
-        
+        return None
+
+
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================

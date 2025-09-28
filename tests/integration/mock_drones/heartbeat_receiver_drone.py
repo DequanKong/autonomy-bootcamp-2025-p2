@@ -16,6 +16,7 @@ DISCONNECT_THRESHOLD = 5
 NUM_TRIALS = 5
 NUM_DISCONNECTS = 3
 
+
 def main() -> int:
     """
     Begin mock drone simulation to test a heartbeat receiver worker.
@@ -25,7 +26,7 @@ def main() -> int:
     # source_component = 0 (autopilot)
     connection = mavutil.mavlink_connection(CONNECTION_STRING, source_system=1, source_component=0)
     connection.wait_heartbeat()
-    
+
     # Instantiate logger after main starts
     drone_name = pathlib.Path(__file__).stem
 

@@ -27,7 +27,7 @@ NUM_FAILS = 3
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
 # Add your own constants here
-OUTPUT_QUEUE_MAX_SIZE = TELEMETRY_PERIOD * NUM_TRIALS * 2 + NUM_FAILS + 5 # add 5 for extra space
+OUTPUT_QUEUE_MAX_SIZE = TELEMETRY_PERIOD * NUM_TRIALS * 2 + NUM_FAILS + 5  # add 5 for extra space
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================
@@ -67,9 +67,11 @@ def read_queue(
             data = output_queue.queue.get()
             main_logger.info(f"Telemetry data: {data}")
 
+
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================
+
 
 def main() -> int:
     """
@@ -121,9 +123,9 @@ def main() -> int:
     threading.Timer(TELEMETRY_PERIOD * NUM_TRIALS * 2 + NUM_FAILS, stop, (controller)).start()
 
     # Read the main queue (worker outputs)
-    threading.Thread(target=read_queue, args=(output_queue, main_logger,controller)).start()
+    threading.Thread(target=read_queue, args=(output_queue, main_logger, controller)).start()
 
-    telemetry_worker.telemetry_worker(connection,output_queue,controller)
+    telemetry_worker.telemetry_worker(connection, output_queue, controller)
     return 0
 
 

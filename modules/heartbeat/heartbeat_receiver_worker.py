@@ -15,11 +15,12 @@ from ..common.modules.logger import logger
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
-    
+
+
 def heartbeat_receiver_worker(
     connection: mavutil.mavfile,
     heartbeat_time: float,
-    output_queue: queue_proxy_wrapper.QueueProxyWrapper, 
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
     controller: worker_controller.WorkerController,
 ) -> None:
     """
@@ -35,7 +36,7 @@ def heartbeat_receiver_worker(
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
     # =============================================================================================
 
-   # Instantiate logger
+    # Instantiate logger
     worker_name = pathlib.Path(__file__).stem
     process_id = os.getpid()
     result, local_logger = logger.Logger.create(f"{worker_name}_{process_id}", True)
@@ -52,28 +53,30 @@ def heartbeat_receiver_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (heartbeat_receiver.HeartbeatReceiver)
-    check, hb_receiver_instance = heartbeat_receiver.HeartbeatReceiver.create(connection, local_logger)
+    check, hb_receiver_instance = heartbeat_receiver.HeartbeatReceiver.create(
+        connection, local_logger
+    )
     if not check:
         local_logger.error("Failed to create Heartbeat Receiver (invalid connection or logger).")
         return
 
     status = "DISCONNECTED"
     missed = 0
-    MISSED_MAX = 5
+    missed_max = 5
     # Worker starts
     local_logger.info("HeartbeatReceiver worker started.")
     # Do work in infinite loop
     while not controller.is_exit_requested():
         controller.check_pause()
-        received = hb_receiver_instance.run_hb_receiver() 
-        if received: # heartbeat received
+        received = hb_receiver_instance.run_hb_receiver()
+        if received:  # heartbeat received
             missed = 0
             local_logger.info("Received heartbeat!")
             status = "CONNECTED"
-        else: # heartbeat not received
+        else:  # heartbeat not received
             missed += 1
             local_logger.warning("Missed heartbeat! " + str(missed) + " in a row.")
-            if (missed >= MISSED_MAX): # if missed 5 times in a row, disconnected
+            if missed >= missed_max:  # if missed 5 times in a row, disconnected
                 status = "DISCONNECTED"
             else:
                 status = "CONNECTED"

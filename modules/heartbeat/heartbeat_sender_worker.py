@@ -12,6 +12,7 @@ from utilities.workers import worker_controller
 from modules.heartbeat import heartbeat_sender
 from modules.common.modules.logger import logger
 
+
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
@@ -50,14 +51,12 @@ def heartbeat_sender_worker(
 
     # Instantiate class object (heartbeat_sender.HeartbeatSender)
     check, hb_sender_instance = heartbeat_sender.HeartbeatSender.create(connection, local_logger)
-   
+
     if not check:
         local_logger.error("Failed to create HeartbeatSender (invalid connection or logger).")
         return
 
     local_logger.info("HeartbeatSender worker started.")
-
-    HEARTBEAT_PERIOD = 1.0  # interval in seconds between heartbeats
 
     # Main loop: do work.
     while not controller.is_exit_requested():
@@ -67,5 +66,5 @@ def heartbeat_sender_worker(
             local_logger.error("Failed to send heartbeat.")
 
         # wait until next heartbeat
-        time.sleep(HEARTBEAT_PERIOD)
+        time.sleep(1.0)
     local_logger.info("HeartbeatSender worker stopped.")

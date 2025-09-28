@@ -29,7 +29,9 @@ ERROR_TOLERANCE = 1e-2
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
 # Add your own constants here
-OUTPUT_QUEUE_MAX_SIZE = NUM_TRIALS * 2 + DISCONNECT_THRESHOLD + NUM_DISCONNECTS + 5 # add 5 for extra space
+OUTPUT_QUEUE_MAX_SIZE = (
+    NUM_TRIALS * 2 + DISCONNECT_THRESHOLD + NUM_DISCONNECTS + 5
+)  # add 5 for extra space
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================
@@ -47,7 +49,9 @@ def start_drone() -> None:
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
-def stop(controller: worker_controller.WorkerController,queue: queue_proxy_wrapper.QueueProxyWrapper) -> None:
+def stop(
+    controller: worker_controller.WorkerController,
+) -> None:
     """
     Stop the workers.
     """
@@ -66,9 +70,11 @@ def read_queue(
         if status is not None:
             main_logger.info("STATUS: " + status)
 
+
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================
+
 
 def main() -> int:
     """
@@ -120,17 +126,19 @@ def main() -> int:
     threading.Timer(
         HEARTBEAT_PERIOD * (NUM_TRIALS * 2 + DISCONNECT_THRESHOLD + NUM_DISCONNECTS + 2),
         stop,
-        (controller,output_queue),
+        (controller, output_queue),
     ).start()
-    
+
     # Run worker instance
-    heartbeat_receiver_worker.heartbeat_receiver_worker(connection,HEARTBEAT_PERIOD,output_queue,controller)
-    
+    heartbeat_receiver_worker.heartbeat_receiver_worker(
+        connection, HEARTBEAT_PERIOD, output_queue, controller
+    )
+
     # Read the main queue (worker outputs)
     threading.Thread(target=read_queue, args=(output_queue, main_logger)).start()
     # Drain queue from start to end
     output_queue.fill_and_drain_queue()
-    
+
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
     # =============================================================================================
