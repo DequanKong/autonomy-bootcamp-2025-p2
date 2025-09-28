@@ -12,20 +12,24 @@ from utilities.workers import worker_controller
 from . import command
 from ..common.modules.logger import logger
 
-
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
 def command_worker(
     connection: mavutil.mavfile,
     target: command.Position,
-    args,  # Place your own arguments here
-    # Add other necessary worker arguments here
+    input_queue: queue_proxy_wrapper.QueueProxyWrapper,
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
+    controller: worker_controller.WorkerController
 ) -> None:
     """
     Worker process.
 
-    args... describe what the arguments are
+    connection: connection instance
+    target: target position for commands
+    input_queue: receive telemetry data
+    output_queue: output to other process
+    controller: how the main process communicates to this worker process.
     """
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
@@ -48,9 +52,18 @@ def command_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (command.Command)
-
+    command_instance = command.Command.create(connection, target, local_logger)
     # Main loop: do work.
-
+    while not controller.is_exit_requested():
+        controller.check_pause()
+        if input_queue is None or input_queue.queue.empty(): # no data
+            continue
+        msg = input_queue.queue.get(timeout=1.0)
+        if msg is None: 
+            continue
+        result = command_instance.run_cmd(msg)
+        if result is not None and output_queue is not None:
+            output_queue.queue.put(result)
 
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
