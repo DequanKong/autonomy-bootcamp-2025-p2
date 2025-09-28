@@ -34,7 +34,7 @@ class HeartbeatSender:
         Attempt to send a heartbeat message.
         """
         try:
-            self._log.debug("Sending HEARTBEAT...")
+            self._log.info("Sending HEARTBEAT...")
             self.connection.mav.heartbeat_send(
                 mavutil.mavlink.MAV_TYPE_GCS,
                 mavutil.mavlink.MAV_AUTOPILOT_INVALID,

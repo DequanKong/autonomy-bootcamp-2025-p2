@@ -48,7 +48,7 @@ def main() -> int:
     connection.wait_heartbeat()
 
     # Task is to recive heartbeats at a rate of 1Hz
-    # Recieve NUM_TRIALS heartbeats to consider a scucess
+    # Receive NUM_TRIALS heartbeats to consider a scucess
     for _ in range(NUM_TRIALS):
         start = time.time()
         msg = connection.recv_match(
@@ -56,7 +56,7 @@ def main() -> int:
         )
         if not msg or msg.get_type() != "HEARTBEAT":
             local_logger.error(
-                f"Drone: Sent incorrect message type or didn't recieve a message in time: {msg}"
+                f"Drone: Sent incorrect message type or didn't receive a message in time: {msg}"
             )
             return -2
         if abs((time.time() - start) - HEARTBEAT_PERIOD) > ERROR_TOLERANCE:
@@ -70,13 +70,13 @@ def main() -> int:
         ):
             local_logger.error("Drone: Sent incorrect contents within heartbeat message.")
             return -4
-        local_logger.info("Drone: Recieved heartbeat!")
+        local_logger.info("Drone: Received heartbeat!")
 
     msg = connection.recv_match(
         type="HEARTBEAT", blocking=True, timeout=HEARTBEAT_PERIOD + ERROR_TOLERANCE
     )
     if msg and msg.get_type() == "HEARTBEAT":
-        local_logger.error("Recieved extra heartbeat")
+        local_logger.error("Received extra heartbeat")
         return -5
 
     local_logger.info("Passed!")
