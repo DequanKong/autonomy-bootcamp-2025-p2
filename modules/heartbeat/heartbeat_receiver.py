@@ -20,8 +20,6 @@ class HeartbeatReceiver:
         Falliable create (instantiation) method to create a HeartbeatReceiver object.
         """
         # Create a HeartbeatReceiver object
-        # if connection is None or local_logger is None:
-        #     return False, None
         return True, HeartbeatReceiver(cls.__private_key, connection, local_logger)
 
     def __init__(self,key: object,connection: mavutil.mavfile,local_logger: logger.Logger):

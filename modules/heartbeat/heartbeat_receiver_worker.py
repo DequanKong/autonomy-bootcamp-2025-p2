@@ -11,7 +11,6 @@ from utilities.workers import queue_proxy_wrapper
 from utilities.workers import worker_controller
 from modules.heartbeat import heartbeat_receiver
 from ..common.modules.logger import logger
-from tests.integration.test_heartbeat_receiver import read_queue
 
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
