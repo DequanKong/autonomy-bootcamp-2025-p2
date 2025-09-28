@@ -1,6 +1,7 @@
 """
 Heartbeat receiving logic.
 """
+
 from typing import Tuple, Union
 from pymavlink import mavutil
 from modules.common.modules.logger import logger
@@ -20,14 +21,18 @@ class HeartbeatReceiver:
     __private_key = object()
 
     @classmethod
-    def create(cls, connection: mavutil.mavfile, local_logger: logger) -> Tuple[bool, Union["HeartbeatReceiver", None]]:
+    def create(
+        cls, connection: mavutil.mavfile, local_logger: logger
+    ) -> Tuple[bool, Union["HeartbeatReceiver", None]]:
         """
         Falliable create (instantiation) method to create a HeartbeatReceiver object.
         """
         # Create a HeartbeatReceiver object
         return True, HeartbeatReceiver(cls.__private_key, connection, local_logger)
 
-    def __init__(self, key: object, connection: mavutil.mavfile, local_logger: logger.Logger) -> None:
+    def __init__(
+        self, key: object, connection: mavutil.mavfile, local_logger: logger.Logger
+    ) -> None:
         assert key is HeartbeatReceiver.__private_key, "Use create() method"
 
         # Initialization
