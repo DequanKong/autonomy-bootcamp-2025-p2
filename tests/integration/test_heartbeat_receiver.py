@@ -29,7 +29,7 @@ ERROR_TOLERANCE = 1e-2
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
 # Add your own constants here
-OUTPUT_QUEUE_MAX_SIZE = NUM_TRIALS * 2 + DISCONNECT_THRESHOLD + NUM_DISCONNECTS + 2
+OUTPUT_QUEUE_MAX_SIZE = NUM_TRIALS * 2 + DISCONNECT_THRESHOLD + NUM_DISCONNECTS + 5 # add 5 for extra space
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
 # =================================================================================================
@@ -52,7 +52,6 @@ def stop(controller: worker_controller.WorkerController,queue: queue_proxy_wrapp
     Stop the workers.
     """
     controller.request_exit()
-    queue.fill_and_drain_queue()
 
 
 def read_queue(
@@ -62,9 +61,10 @@ def read_queue(
     """
     Read from output queue and print it using logger
     """
-    status = output_queue.queue.get()
-    if (status == "Connected" or status == "Disconnected"):
-        main_logger.logger.info("STATUS: " + status)
+    while not output_queue.queue.empty():
+        status = output_queue.queue.get()
+        if status is not None:
+            main_logger.info("STATUS: " + status)
 
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
@@ -122,11 +122,15 @@ def main() -> int:
         stop,
         (controller,output_queue),
     ).start()
-
-    # Read the main queue (worker outputs)
-    threading.Thread(target=read_queue, args=(controller, main_logger)).start()
-
+    
+    # Run worker instance
     heartbeat_receiver_worker.heartbeat_receiver_worker(connection,HEARTBEAT_PERIOD,output_queue,controller)
+    
+    # Read the main queue (worker outputs)
+    threading.Thread(target=read_queue, args=(output_queue, main_logger)).start()
+    # Drain queue from start to end
+    output_queue.fill_and_drain_queue()
+    
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
     # =============================================================================================

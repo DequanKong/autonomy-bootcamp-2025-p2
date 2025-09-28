@@ -25,11 +25,13 @@ def main() -> int:
     # source_component = 0 (autopilot)
     connection = mavutil.mavlink_connection(CONNECTION_STRING, source_system=1, source_component=0)
     connection.wait_heartbeat()
-
+    
     # Instantiate logger after main starts
     drone_name = pathlib.Path(__file__).stem
+
     process_id = os.getpid()
     result, local_logger = logger.Logger.create(f"{drone_name}_{process_id}", True)
+
     if not result:
         print("ERROR: Worker failed to create drone logger")
         return -1
@@ -40,6 +42,7 @@ def main() -> int:
     local_logger.info("Logger initialized")
 
     # Task is to send trials heartbeats at a rate of 1Hz
+
     def send_heartbeats(trials: int) -> int:
         for _ in range(trials):
             try:
@@ -62,6 +65,7 @@ def main() -> int:
         return -1
 
     # Do not send heartbeats for a period of time to mimick the drone disconnected
+
     time.sleep(HEARTBEAT_PERIOD * (DISCONNECT_THRESHOLD + NUM_DISCONNECTS))
 
     # Reconnect
@@ -74,7 +78,7 @@ def main() -> int:
     if send_heartbeats(1) != 0:
         return -1
 
-    local_logger.info("Passesd!")
+    local_logger.info("Passed!")
     return 0
 
 

@@ -11,6 +11,7 @@ from utilities.workers import queue_proxy_wrapper
 from utilities.workers import worker_controller
 from modules.heartbeat import heartbeat_receiver
 from ..common.modules.logger import logger
+from tests.integration.test_heartbeat_receiver import read_queue
 
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
@@ -29,6 +30,7 @@ def heartbeat_receiver_worker(
     heartbeat_time: interval in which worker tries to receive heartbeats
     output_queue: output to the main process
     controller: how the main process communicates to this worker process.
+    main_logger: Logger of output_queue
     """
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
@@ -56,33 +58,27 @@ def heartbeat_receiver_worker(
         local_logger.error("Failed to create Heartbeat Receiver (invalid connection or logger).")
         return
 
-    status = "Disconnected"
+    status = "DISCONNECTED"
     missed = 0
     MISSED_MAX = 5
-    a = 1
     # Worker starts
     local_logger.info("HeartbeatReceiver worker started.")
-    
     # Do work in infinite loop
     while not controller.is_exit_requested():
         controller.check_pause()
-        local_logger.info("SECOND " + str(a))
-        a += 1
-        received = hb_receiver_instance.run_hb_receiver()
-        if (received):
+        received = hb_receiver_instance.run_hb_receiver() 
+        if received: # heartbeat received
             missed = 0
             local_logger.info("Received heartbeat!")
-            status = "Connected"
-            local_logger.info("STATUS: " + status)
-        else:
+            status = "CONNECTED"
+        else: # heartbeat not received
             missed += 1
             local_logger.warning("Missed heartbeat! " + str(missed) + " in a row.")
             if (missed >= MISSED_MAX): # if missed 5 times in a row, disconnected
-                status = "Disconnected"
-                local_logger.warning("STATUS: " + status)
+                status = "DISCONNECTED"
             else:
-                local_logger.info("STATUS: " + status)
-        output_queue.queue.put(status)
+                status = "CONNECTED"
+        local_logger.info("STATUS: " + status)
+        output_queue.queue.put(f"{status} at {time.strftime('%H:%M:%S')}")
         time.sleep(heartbeat_time)
-
     local_logger.info("HeartbeatReceiver worker stopped.")

@@ -28,8 +28,11 @@ def main() -> int:
     # Mocked autopilot/drone
     # source_system = 1 (airside on drone)
     # source_component = 0 (autopilot)
+    print("kys")
     connection = mavutil.mavlink_connection(CONNECTION_STRING, source_system=1, source_component=0)
+    print("kys")
     connection.wait_heartbeat()
+    print("kys")
 
     # Instantiate logger after main starts
     drone_name = pathlib.Path(__file__).stem
@@ -136,6 +139,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    
     result_main = main()
     if result_main < 0:
         print(f"Drone: Failed with return code {result_main}")
