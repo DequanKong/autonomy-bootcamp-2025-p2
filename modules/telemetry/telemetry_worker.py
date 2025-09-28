@@ -4,6 +4,7 @@ Telemtry worker that gathers GPS data.
 
 import os
 import pathlib
+import time 
 
 from pymavlink import mavutil
 
@@ -12,19 +13,21 @@ from utilities.workers import worker_controller
 from . import telemetry
 from ..common.modules.logger import logger
 
-
 # =================================================================================================
 #                            ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
 # =================================================================================================
 def telemetry_worker(
     connection: mavutil.mavfile,
-    args,  # Place your own arguments here
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper, 
+    controller: worker_controller.WorkerController,
     # Add other necessary worker arguments here
 ) -> None:
     """
     Worker process.
 
-    args... describe what the arguments are
+    connection: connection instance
+    output_queue: output to other process
+    controller: how the main process communicates to this worker process.
     """
     # =============================================================================================
     #                          ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑
@@ -47,9 +50,19 @@ def telemetry_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (telemetry.Telemetry)
-
+    telemetry_instance = telemetry.Telemetry.create(connection,local_logger)
     # Main loop: do work.
-
+    
+    local_logger.info("Telemetry worker started.")
+    
+    while not controller.is_exit_requested():
+        controller.check_pause()
+        data = telemetry_instance.run_telemetry()
+        if not data:
+            continue
+        output_queue.queue.put(data)
+        local_logger.info(f"Telemetry data: {data}")
+    local_logger.info("Telemetry worker stopped.")       
 
 # =================================================================================================
 #                            ↑ BOOTCAMPERS MODIFY ABOVE THIS COMMENT ↑

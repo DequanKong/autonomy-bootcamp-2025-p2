@@ -27,9 +27,9 @@ class HeartbeatReceiver:
 
         # Initialization
         self.connection = connection
-        self._log = local_logger
+        self.__log = local_logger
         
-        self._log.info("HeartbeatReceiver initialized")
+        self.__log.info("HeartbeatReceiver initialized")
         
     def run_hb_receiver(self):
         msg = self.connection.recv_match(
