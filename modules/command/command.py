@@ -44,7 +44,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
         """
         command = cls(cls.__private_key, connection, target, local_logger)
         local_logger.info("Command initialized")
-        return command
+        return True, command
 
     def __init__(
         self,
@@ -115,9 +115,9 @@ class Command:  # pylint: disable=too-many-instance-attributes
         yaw_angle = (target_yaw_deg - now_yaw_deg + 180) % 360 - 180
 
         if (abs(yaw_angle)) > 5:  # need to adjust direction
-            direction = 1  # if angle positive, clockwise
+            direction = -1  # if angle positive, counter-clockwise
             if yaw_angle <= 0:
-                direction = -1  # if angle negative, counter-clockwise
+                direction = 1  # if angle negative, clockwise
             self.connection.mav.command_long_send(
                 1,  # target_system
                 0,  # target_component

@@ -1,0 +1,66 @@
+19:19:48: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver_worker.py | heartbeat_receiver_worker | 50] Logger initialized
+
+19:19:48: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | __init__ | 42] HeartbeatReceiver initialized
+
+19:19:48: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver_worker.py | heartbeat_receiver_worker | 65] HeartbeatReceiver worker started.
+
+19:19:48: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:19:49: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:19:50: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:19:51: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:19:52: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:19:53: [WARNING] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 53] Missed heartbeat! 1 in a row.
+
+19:19:53: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:19:54: [WARNING] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 53] Missed heartbeat! 2 in a row.
+
+19:19:54: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:19:55: [WARNING] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 53] Missed heartbeat! 3 in a row.
+
+19:19:55: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:19:56: [WARNING] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 53] Missed heartbeat! 4 in a row.
+
+19:19:56: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:19:57: [WARNING] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 53] Missed heartbeat! 5 in a row.
+
+19:19:57: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: DISCONNECTED
+
+19:19:58: [WARNING] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 53] Missed heartbeat! 6 in a row.
+
+19:19:58: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: DISCONNECTED
+
+19:19:59: [WARNING] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 53] Missed heartbeat! 7 in a row.
+
+19:19:59: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: DISCONNECTED
+
+19:20:00: [WARNING] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 53] Missed heartbeat! 8 in a row.
+
+19:20:00: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: DISCONNECTED
+
+19:20:01: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:20:02: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:20:03: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:20:04: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:20:05: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:20:06: [WARNING] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 53] Missed heartbeat! 1 in a row.
+
+19:20:06: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:20:07: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver.py | run_hb_receiver | 59] STATUS: CONNECTED
+
+19:20:08: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/modules/heartbeat/heartbeat_receiver_worker.py | heartbeat_receiver_worker | 73] HeartbeatReceiver worker stopped.
+

@@ -51,11 +51,13 @@ def start_drone() -> None:
 # =================================================================================================
 def stop(
     controller: worker_controller.WorkerController,
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
 ) -> None:
     """
     Stop the workers.
     """
     controller.request_exit()
+    output_queue.fill_and_drain_queue()
 
 
 def read_queue(

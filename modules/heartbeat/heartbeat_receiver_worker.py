@@ -61,26 +61,13 @@ def heartbeat_receiver_worker(
         return
 
     status = "DISCONNECTED"
-    missed = 0
-    missed_max = 5
     # Worker starts
     local_logger.info("HeartbeatReceiver worker started.")
     # Do work in infinite loop
     while not controller.is_exit_requested():
         controller.check_pause()
-        received = hb_receiver_instance.run_hb_receiver()
-        if received:  # heartbeat received
-            missed = 0
-            local_logger.info("Received heartbeat!")
-            status = "CONNECTED"
-        else:  # heartbeat not received
-            missed += 1
-            local_logger.warning("Missed heartbeat! " + str(missed) + " in a row.")
-            if missed >= missed_max:  # if missed 5 times in a row, disconnected
-                status = "DISCONNECTED"
-            else:
-                status = "CONNECTED"
-        local_logger.info("STATUS: " + status)
-        output_queue.queue.put(f"{status} at {time.strftime('%H:%M:%S')}")
+        status = hb_receiver_instance.run_hb_receiver()
+        if status:
+            output_queue.queue.put(f"{status} at {time.strftime('%H:%M:%S')}")
         time.sleep(heartbeat_time)
     local_logger.info("HeartbeatReceiver worker stopped.")

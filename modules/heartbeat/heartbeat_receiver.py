@@ -40,12 +40,21 @@ class HeartbeatReceiver:
         self.__log = local_logger
 
         self.__log.info("HeartbeatReceiver initialized")
+        self.missed = 0
+        self.state = "DISCONNECTED"
 
-    def run_hb_receiver(self) -> bool:
+    def run_hb_receiver(self) -> str:
         """
         Checks if the heartbeat received is a heartbeat message
         """
         msg = self.connection.recv_match(type="HEARTBEAT")
-        if msg is None:
-            return False
-        return True
+        if not msg:
+            self.missed += 1
+            self.__log.warning("Missed heartbeat! " + str(self.missed) + " in a row.")
+            if self.missed >= 5:
+                self.state = "DISCONNECTED"
+        else:
+            self.missed = 0
+            self.state = "CONNECTED"
+        self.__log.info("STATUS: " + self.state)
+        return self.state

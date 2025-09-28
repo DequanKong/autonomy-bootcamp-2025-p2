@@ -47,11 +47,13 @@ def start_drone() -> None:
 # =================================================================================================
 def stop(
     controller: worker_controller.WorkerController,  # Add any necessary arguments
+    output_queue: queue_proxy_wrapper.QueueProxyWrapper,
 ) -> None:
     """
     Stop the workers.
     """
     controller.request_exit()
+    output_queue.fill_and_drain_queue()
 
 
 def read_queue(
@@ -63,6 +65,7 @@ def read_queue(
     Read and print the output queue.
     """
     while not controller.is_exit_requested():
+        controller.check_pause()
         if not output_queue.queue.empty():
             data = output_queue.queue.get()
             main_logger.info(f"Telemetry data: {data}")
@@ -120,7 +123,9 @@ def main() -> int:
     # Create your queues
     output_queue = queue_proxy_wrapper.QueueProxyWrapper(mp_manager, OUTPUT_QUEUE_MAX_SIZE)
     # Just set a timer to stop the worker after a while, since the worker infinite loops
-    threading.Timer(TELEMETRY_PERIOD * NUM_TRIALS * 2 + NUM_FAILS, stop, (controller)).start()
+    threading.Timer(
+        TELEMETRY_PERIOD * NUM_TRIALS * 2 + NUM_FAILS, stop, (controller, output_queue)
+    ).start()
 
     # Read the main queue (worker outputs)
     threading.Thread(target=read_queue, args=(output_queue, main_logger, controller)).start()

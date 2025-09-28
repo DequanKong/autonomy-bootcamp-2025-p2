@@ -1,0 +1,104 @@
+19:21:19: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | main | 45] Logger initialized
+
+19:21:19: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 0
+
+19:21:19: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 0
+
+19:21:19: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 1
+
+19:21:19: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 1
+
+19:21:19: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 2
+
+19:21:20: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 3
+
+19:21:20: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 2
+
+19:21:20: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 4
+
+19:21:20: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 3
+
+19:21:20: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 5
+
+19:21:21: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 6
+
+19:21:21: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 4
+
+19:21:21: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 7
+
+19:21:21: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 5
+
+19:21:21: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 8
+
+19:21:22: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 9
+
+19:21:22: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 6
+
+19:21:22: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 10
+
+19:21:22: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 7
+
+19:21:22: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 11
+
+19:21:23: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 12
+
+19:21:23: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 8
+
+19:21:23: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 13
+
+19:21:23: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 9
+
+19:21:23: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 14
+
+19:21:27: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 0
+
+19:21:27: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 0
+
+19:21:27: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 1
+
+19:21:27: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 1
+
+19:21:27: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 2
+
+19:21:28: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 2
+
+19:21:28: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 3
+
+19:21:28: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 4
+
+19:21:28: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 3
+
+19:21:28: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 5
+
+19:21:29: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 4
+
+19:21:29: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 6
+
+19:21:29: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 7
+
+19:21:29: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 5
+
+19:21:29: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 8
+
+19:21:30: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 6
+
+19:21:30: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 9
+
+19:21:30: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 10
+
+19:21:30: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 7
+
+19:21:30: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 11
+
+19:21:31: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 8
+
+19:21:31: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 12
+
+19:21:31: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 13
+
+19:21:31: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 75] Drone: Sent attitude 9
+
+19:21:31: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | send_telemetry | 95] Drone: Sent position 14
+
+19:21:32: [INFO] [/Users/dk/Documents/University/1A/autonomy-bootcamp-2025-p2/tests/integration/mock_drones/telemetry_drone.py | main | 134] Passed!
+

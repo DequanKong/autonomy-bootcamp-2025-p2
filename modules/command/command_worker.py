@@ -53,17 +53,19 @@ def command_worker(
     #                          ↓ BOOTCAMPERS MODIFY BELOW THIS COMMENT ↓
     # =============================================================================================
     # Instantiate class object (command.Command)
-    command_instance = command.Command.create(connection, target, local_logger)
+    check, command_instance = command.Command.create(connection, target, local_logger)
+    if not check:
+        local_logger.error("Error with creating instance")
     # Main loop: do work.
     while not controller.is_exit_requested():
         controller.check_pause()
-        if input_queue is None or input_queue.queue.empty():  # no data
+        if input_queue.queue.empty():  # no data
             continue
         msg = input_queue.queue.get(timeout=1.0)
         if msg is None:
             continue
         result = command_instance.run_cmd(msg)
-        if result is not None and output_queue is not None:
+        if result is not None:
             output_queue.queue.put(result)
 
 

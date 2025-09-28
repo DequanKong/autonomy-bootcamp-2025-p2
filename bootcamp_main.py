@@ -186,13 +186,15 @@ def main() -> int:
     # Continue running for 100 seconds or until the drone disconnects
     start = time.time()
     while time.time() - start < 100:
-        heartbeat_data = hb_queue.queue.get(timeout=0.1)
-        if heartbeat_data is not None:
-            main_logger.info(f"Received heartbeat: {heartbeat_data}")
-
         command_data = command_queue.queue.get(timeout=0.1)
         if command_data is not None:
             main_logger.info(f"Received heartbeat: {command_data}")
+
+        heartbeat_data = hb_queue.queue.get(timeout=0.1)
+        if heartbeat_data is not None:
+            if heartbeat_data == "DISCONNECTED":
+                break
+            main_logger.info(f"Received heartbeat: {heartbeat_data}")
     # Stop the processes
     controller.request_exit()
     main_logger.info("Requested exit")
