@@ -65,7 +65,7 @@ def command_worker(
         if msg is None:
             continue
         result = command_instance.run_cmd(msg)
-        if result is not None:
+        if result != "":
             output_queue.queue.put(result)
 
 

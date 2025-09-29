@@ -61,7 +61,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
         self.logger = local_logger
         self.velocity_data = []
 
-    def run_cmd(self, telemetry_data: telemetry.TelemetryData) -> None:
+    def run_cmd(self, telemetry_data: telemetry.TelemetryData) -> str:
         """
         Make a decision based on received telemetry data.
         """
@@ -132,7 +132,7 @@ class Command:  # pylint: disable=too-many-instance-attributes
                 0,  # param5-param7 not used
             )
             return f"CHANGE YAW: {yaw_angle}"
-        return None
+        return ""
 
 
 # =================================================================================================
